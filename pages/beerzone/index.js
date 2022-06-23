@@ -25,11 +25,6 @@ const labels = ["Camden", "Chris", "John", "Kacper", "Marcus", "Ryan", "Yuvi"];
 
 const options = {
   indexAxis: "y",
-  elements: {
-    bar: {
-      borderWidth: 2,
-    },
-  },
   responsive: true,
   plugins: {
     legend: {
@@ -42,19 +37,22 @@ const options = {
   },
 };
 
-const chartData = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [1, 2, 10, 3, 4, 2, 1],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
-
-const Beerzone = ({ data }) => {
+const Beerzone = ({ beerData }) => {
+  const sortedData = beerData.sort((boyA, boyB) => {
+    return boyA.totalDrinks > boyB.totalDrinks ? -1 : 1;
+  });
+  const labels = sortedData.map((boy) => boy.name);
+  const data = sortedData.map((boy) => boy.totalDrinks);
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: "Beers",
+        data,
+        backgroundColor: "rgba(236, 157, 0, 0.75)",
+      },
+    ],
+  };
   return (
     <Layout>
       <h1>Beerzone</h1>
@@ -66,7 +64,7 @@ const Beerzone = ({ data }) => {
 export const getServerSideProps = (ctx) => {
   return {
     props: {
-      data: placeholderData,
+      beerData: placeholderData,
     },
   };
 };
