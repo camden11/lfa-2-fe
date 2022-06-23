@@ -3,7 +3,7 @@ const beerBoard = [
   { boy: "Marcus", totalDrinks: 20 },
 ];
 
-const nightView = [
+export const nightView = [
   {
     boy: "Yuvi",
     totalDrinks: 4,
